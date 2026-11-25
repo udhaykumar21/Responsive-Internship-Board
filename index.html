@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Responsive Internship Board</title>
+  <meta name="description" content="Search and filter fictional internships, view details and apply.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to internship list</a>
+
+  <header class="site-header">
+    <h1>Internship Board</h1>
+    <p>Find a fictional internship by domain, work mode or skill.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="filters-heading" class="filters">
+      <h2 id="filters-heading" class="visually-hidden">Search and filters</h2>
+      <form id="filter-form" role="search" novalidate>
+        <div class="field">
+          <label for="search">Search by title, skill or location</label>
+          <input id="search" name="search" type="search" autocomplete="off" placeholder="e.g. SQL, Pune, Figma">
+        </div>
+        <div class="field">
+          <label for="domain">Domain</label>
+          <select id="domain" name="domain"><option value="">All domains</option></select>
+        </div>
+        <div class="field">
+          <label for="mode">Work mode</label>
+          <select id="mode" name="mode"><option value="">All modes</option></select>
+        </div>
+        <button type="reset" id="clear" class="btn btn-secondary">Clear filters</button>
+      </form>
+    </section>
+
+    <section id="results" tabindex="-1" aria-labelledby="results-heading">
+      <h2 id="results-heading">Internships</h2>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <div id="loading" class="state" hidden>
+        <div class="spinner" aria-hidden="true"></div><p>Loading internships…</p>
+      </div>
+      <div id="error" class="state state-error" role="alert" hidden>
+        <p><strong>Something went wrong.</strong> <span id="error-msg">We couldn't load internships.</span></p>
+        <button type="button" id="retry" class="btn">Retry</button>
+      </div>
+      <div id="empty" class="state" hidden>
+        <p><strong>No internships match your search.</strong></p>
+        <p>Try a different keyword or clear the filters.</p>
+        <button type="button" id="empty-clear" class="btn btn-secondary">Clear filters</button>
+      </div>
+
+      <ul id="list" class="grid" aria-label="Internship listings"></ul>
+    </section>
+  </main>
+
+  <dialog id="dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <div class="dialog-head">
+        <h2 id="dialog-title"></h2>
+        <button type="button" id="dialog-close" class="btn btn-secondary" aria-label="Close dialog">✕</button>
+      </div>
+      <dl id="dialog-details" class="details"></dl>
+
+      <form id="apply-form" novalidate>
+        <h3>Apply</h3>
+        <div class="field">
+          <label for="a-name">Full name <span aria-hidden="true">*</span></label>
+          <input id="a-name" name="name" type="text" autocomplete="name" required aria-describedby="a-name-err">
+          <p class="field-error" id="a-name-err"></p>
+        </div>
+        <div class="field">
+          <label for="a-email">Email <span aria-hidden="true">*</span></label>
+          <input id="a-email" name="email" type="email" autocomplete="email" required aria-describedby="a-email-err">
+          <p class="field-error" id="a-email-err"></p>
+        </div>
+        <div class="field">
+          <label for="a-url">Portfolio link (optional, https only)</label>
+          <input id="a-url" name="url" type="url" inputmode="url" placeholder="https://" aria-describedby="a-url-err">
+          <p class="field-error" id="a-url-err"></p>
+        </div>
+        <p id="apply-msg" class="status" role="status" aria-live="polite"></p>
+        <button type="submit" class="btn">Submit application</button>
+      </form>
+    </div>
+  </dialog>
+
+  <footer class="site-footer"><p>Fictional data for learning. No real applications are sent.</p></footer>
+  <script src="app.js"></script>
+</body>
+</html>
